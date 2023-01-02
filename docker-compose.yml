@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=tolo
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=G7e3KSMED
+    ports:
+      - "5432:5432"
+
+  web:
+    build: .
+    command: >
+      base -c "cd src
+      && python manage.py migrate
+      && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/tolo
+    ports:
+      - "8000:8000"
+    environment:
+      - POSTGRES_NAME=tolo
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=G7e3KSMED
+    depends_on:
+      - db
