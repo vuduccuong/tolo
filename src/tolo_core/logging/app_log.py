@@ -1,4 +1,3 @@
-import datetime
 import logging
 
 logger = logging.getLogger(__name__)
@@ -7,4 +6,8 @@ logger = logging.getLogger(__name__)
 class AppLog:
     @classmethod
     def log_warning(cls):
-        logger.warning("This is log")
+        logger.warning("has has has")
+
+    @classmethod
+    def log_err(cls, msg):
+        logger.debug(msg)
