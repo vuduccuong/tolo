@@ -19,7 +19,7 @@ class AccountViewSet(JwtAuthViewSet):
     def list(self, request):
         users = User.objects.all()
         return Response(
-            data={"totla": UserSerializer(users, many=True).data}, status=200
+            data={"users": UserSerializer(users, many=True).data}, status=200
         )
 
     def create(self, request):

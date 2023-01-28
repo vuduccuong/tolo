@@ -21,7 +21,7 @@ class JwtAuthentication(TokenAuthentication):
 
     @staticmethod
     def get_token_header(request):
-        return request.META.get("HTTP_AUTHORIZATION", None)
+        return request.META.get("HTTP_AUTHORIZATION", "")
 
     @staticmethod
     def get_jwt_user(token):
