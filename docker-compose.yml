@@ -22,7 +22,7 @@ services:
     volumes:
       - .:/tolo
     ports:
-      - "8000:8000"
+      - "1996:8000"
     environment:
       - POSTGRES_NAME=tolo
       - POSTGRES_USER=postgres
