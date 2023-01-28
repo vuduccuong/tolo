@@ -15,3 +15,11 @@ class PostSerializer(serializers.ModelSerializer):
             "created_by",
             "modified_date",
         )
+
+
+class PostDetailSerializer(serializers.ModelSerializer):
+    author = AuthorSerializer()
+
+    class Meta:
+        model = Post
+        fields = "__all__"

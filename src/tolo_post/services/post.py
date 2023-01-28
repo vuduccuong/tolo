@@ -8,3 +8,19 @@ class PostService:
     def get_posts(cls) -> QuerySet[Post]:
 
         return Post.objects.select_related("author").all()
+
+    @classmethod
+    def get_post_detail(cls, pk) -> QuerySet[Post] | None:
+        try:
+            is_pk = False
+            try:
+                pk = int(pk)
+                is_pk = True
+            except:
+                pass
+            if is_pk:
+                return Post.objects.get(id=pk)
+
+            return Post.objects.get(slug__exact=pk)
+        except Post.DoesNotExist:
+            return None
