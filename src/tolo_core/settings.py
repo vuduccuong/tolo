@@ -63,6 +63,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "tolo_core.middlewares.current_request.RequestMiddleware",
 ]
 
 ROOT_URLCONF = "tolo_core.urls"
