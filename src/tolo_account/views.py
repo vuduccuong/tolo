@@ -3,6 +3,7 @@ from datetime import datetime
 from django.contrib.auth import get_user_model
 from django.db import transaction
 from django.db.models import Q
+from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from tolo_account.serializers.user_profile import (
@@ -10,6 +11,7 @@ from tolo_account.serializers.user_profile import (
     CreateProfileSerializer,
 )
 from tolo_auth.serializers.user import CreateUserSerializer
+from tolo_core.constants.http_method import HttpMethod
 from tolo_core.view_mixin.jwt_view import JwtAuthViewSet
 
 User = get_user_model()
@@ -27,7 +29,13 @@ class AccountViewSet(JwtAuthViewSet):
             data={"users": UserSerializer(users, many=True).data}, status=200
         )
 
-    def create(self, request):
+    @action(
+        methods=[HttpMethod.POST],
+        url_path="create",
+        detail=False,
+        authentication_classes=(),
+    )
+    def create_account(self, request):
         data = request.data.copy()
         user_serializer = CreateUserSerializer(data=data)
         user_serializer.is_valid(raise_exception=True)
