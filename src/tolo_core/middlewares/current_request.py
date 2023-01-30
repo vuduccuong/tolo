@@ -21,4 +21,9 @@ class RequestMiddleware(object):
             from rest_framework.parsers import JSONParser
 
             tolo_global.request = Request(request, parsers=[JSONParser()])
-        return self.get_response(request)
+        response = self.get_response(request)
+
+        if hasattr(tolo_global, "request"):
+            delattr(tolo_global, "request")
+
+        return response

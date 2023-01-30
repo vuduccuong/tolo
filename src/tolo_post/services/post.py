@@ -1,13 +1,11 @@
 from django.db.models import QuerySet
-
 from tolo_post.models import Post
 
 
 class PostService:
     @classmethod
-    def get_posts(cls) -> QuerySet[Post]:
-
-        return Post.objects.select_related("author").all()
+    def get_posts(cls, user_id: int) -> QuerySet[Post]:
+        return Post.objects.select_related("author").filter(author_id=user_id)
 
     @classmethod
     def get_post_detail(cls, pk) -> QuerySet[Post] | None:

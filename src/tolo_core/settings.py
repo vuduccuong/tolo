@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -89,14 +90,16 @@ WSGI_APPLICATION = "tolo_core.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
+__HOST = "localhost"
+if os.environ.get("PROD"):
+    __HOST = "db"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "tolo",  # os.environ.get("POSTGRES_NAME"),
         "USER": "postgres",  # os.environ.get("POSTGRES_USER"),
         "PASSWORD": "G7e3KSMED",  # os.environ.get("POSTGRES_PASSWORD"),
-        "HOST": "db",  # "db",
+        "HOST": __HOST,  # "db",
         "PORT": "5432",
     }
 }

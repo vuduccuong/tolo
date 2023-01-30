@@ -11,6 +11,3 @@ class AuthSerializer(serializers.Serializer):
     username = serializers.CharField(required=True)
     password = serializers.CharField(required=True)
     remember_me = serializers.BooleanField(required=False)
-
-    def validate(self, attrs):
-        return attrs

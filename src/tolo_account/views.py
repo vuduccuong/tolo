@@ -2,6 +2,7 @@ from datetime import datetime
 
 from django.contrib.auth import get_user_model
 from django.db import transaction
+from django.db.models import Q
 from rest_framework.response import Response
 
 from tolo_account.serializers.user_profile import (
@@ -17,7 +18,11 @@ User = get_user_model()
 # Create your views here.
 class AccountViewSet(JwtAuthViewSet):
     def list(self, request):
-        users = User.objects.all()
+        user = request.user
+        ft = Q(pk=user.id)
+        if user.is_staff or user.is_superuser:
+            ft = Q()
+        users = User.objects.filter(ft).exclude(Q(is_active=0))
         return Response(
             data={"users": UserSerializer(users, many=True).data}, status=200
         )

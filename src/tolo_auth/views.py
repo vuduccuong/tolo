@@ -30,4 +30,4 @@ class AuthViewSet(viewsets.ViewSet):
                 status=status.HTTP_200_OK,
             )
 
-        return Response(status == status.HTTP_401_UNAUTHORIZED)
+        return Response(status=status.HTTP_400_BAD_REQUEST)

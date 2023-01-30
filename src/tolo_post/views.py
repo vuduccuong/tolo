@@ -8,13 +8,15 @@ from tolo_post.services.post import PostService
 
 
 class PostViewSet(JwtAuthViewSet):
+    paginator = LimitOffsetPagination()
+
     def list(self, request):
-        paginator = LimitOffsetPagination()
-        posts = PostService.get_posts()
+        user = request.user
+        posts = PostService.get_posts(user_id=user.id)
         serializer = PostSerializer(
-            paginator.paginate_queryset(posts, request), many=True
+            self.paginator.paginate_queryset(posts, request), many=True
         )
-        return paginator.get_paginated_response(serializer.data)
+        return self.paginator.get_paginated_response(serializer.data)
 
     def retrieve(self, request, pk):
         post = PostService.get_post_detail(pk)

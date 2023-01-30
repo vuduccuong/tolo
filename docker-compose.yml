@@ -24,6 +24,7 @@ services:
     ports:
       - "1996:8000"
     environment:
+      - PROD=1
       - POSTGRES_NAME=tolo
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=G7e3KSMED
