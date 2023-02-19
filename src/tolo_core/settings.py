@@ -91,8 +91,15 @@ WSGI_APPLICATION = "tolo_core.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 __HOST = "localhost"
+
+
+ELASTIC_SEARCH_HOST = "localhost"
+ELASTIC_SEARCH_PORT = 9200
+
 if os.environ.get("PROD"):
     __HOST = "db"
+    ELASTIC_SEARCH_HOST = "elasticsearch"
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
